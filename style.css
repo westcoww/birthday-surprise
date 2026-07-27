@@ -127,16 +127,28 @@ button{
     width:170px;
     height:150px;
 
-    background:white;
-
-    border-radius:50%;
-
     display:flex;
 
     justify-content:center;
     align-items:center;
 
     font-size:55px;
+
+}
+
+#catImage{
+
+    width:130px;
+
+    height:130px;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+    user-select:none;
+
+    pointer-events:none;
 
 }
 

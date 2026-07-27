@@ -4,6 +4,10 @@ const gameScreen = document.getElementById("gameScreen");
 
 const belly = document.getElementById("belly");
 const speech = document.getElementById("speech");
+const catImage = document.getElementById("catImage");
+
+const blushLeft = document.querySelector(".blush.left");
+const blushRight = document.querySelector(".blush.right");
 
 let petCount = 0;
 let isDragging = false;
@@ -60,6 +64,7 @@ belly.addEventListener("mousemove", (e) => {
 
             petCount++;
 
+            updateBlush();
             updateReaction();
 
         }
@@ -70,22 +75,58 @@ belly.addEventListener("mousemove", (e) => {
 
 });
 
+function updateBlush() {
+
+    let opacity = petCount / 32;
+
+    if(opacity > 1){
+        opacity = 1;
+    }
+
+    blushLeft.style.opacity = opacity;
+    blushRight.style.opacity = opacity;
+
+}
+
+function showSuspiciousFace(message) {
+
+    catImage.src = "images/cat-sus.png";
+    speech.textContent = message;
+
+    setTimeout(() => {
+
+        catImage.src = "images/cat-normal.png";
+        speech.textContent = "";
+
+    }, 1000);
+
+}
+
 function updateReaction() {
 
     if (petCount === 7) {
-        speech.textContent = "...";
+
+        showSuspiciousFace("...");
+
     }
 
     else if (petCount === 15) {
-        speech.textContent = "잠깐...";
+
+        showSuspiciousFace("잠깐...");
+
     }
 
     else if (petCount === 25) {
-        speech.textContent = "......";
+
+        showSuspiciousFace("......");
+
     }
 
     else if (petCount === 32) {
-        speech.textContent = "💨 푸우우우우우웅!!!!";
+
+        catImage.src = "images/cat-sus.png";
+        speech.textContent = "💨 푸우우우우웅!!!!";
+
     }
 
 }
