@@ -9,6 +9,11 @@ const catImage = document.getElementById("catImage");
 const blushLeft = document.querySelector(".blush.left");
 const blushRight = document.querySelector(".blush.right");
 
+const fart = document.getElementById("fart");
+
+const birthdayScreen =
+document.getElementById("birthdayScreen");
+
 let petCount = 0;
 let isDragging = false;
 
@@ -88,45 +93,79 @@ function updateBlush() {
 
 }
 
+// 기존 showSuspiciousFace 함수를 덮어씌워 주세요.
 function showSuspiciousFace(message) {
-
     catImage.src = "images/cat-sus.png";
     speech.textContent = message;
+    
+    // ★ 배경을 붉게 변경
+    document.body.classList.add("bg-sus");
 
     setTimeout(() => {
-
         catImage.src = "images/cat-normal.png";
         speech.textContent = "";
-
+        
+        // ★ 1초 뒤에 원래 배경색으로 복구
+        document.body.classList.remove("bg-sus");
     }, 1000);
+}
+
+// updateReaction 함수 안에서 32번 달성했을 때의 코드도 살짝 수정해 줍니다.
+function updateReaction() {
+    if (petCount === 7) {
+        showSuspiciousFace("...");
+    } else if (petCount === 15) {
+        showSuspiciousFace("잠깐...");
+    } else if (petCount === 25) {
+        showSuspiciousFace("......");
+    } else if (petCount === 32) {
+        catImage.src = "images/cat-sus.png";
+        speech.textContent = "뿌우우우우웅!!!!!!";
+        
+        // ★ 대망의 방귀 폭발 순간에도 배경을 붉게!
+        document.body.classList.add("bg-sus");
+
+        fartExplosion();
+
+        setTimeout(() => {
+            showBirthday();
+        }, 5000);
+    }
+}
+
+function fartExplosion(){
+
+    fart.innerHTML = "";
+
+    for(let i=0;i<10;i++){
+
+        const gas=document.createElement("div");
+
+        gas.className="gas";
+
+        gas.style.left=(45+Math.random()*10)+"%";
+        gas.style.top=(58+Math.random()*6)+"%";
+
+        gas.style.animationDelay=(i*0.12)+"s";
+
+        fart.appendChild(gas);
+
+    }
 
 }
 
-function updateReaction() {
+function showBirthday() {
+    // 1. 생일 화면을 먼저 띄워둠
+    birthdayScreen.style.visibility = "visible";
+    birthdayScreen.style.opacity = "1";
 
-    if (petCount === 7) {
-
-        showSuspiciousFace("...");
-
-    }
-
-    else if (petCount === 15) {
-
-        showSuspiciousFace("잠깐...");
-
-    }
-
-    else if (petCount === 25) {
-
-        showSuspiciousFace("......");
-
-    }
-
-    else if (petCount === 32) {
-
-        catImage.src = "images/cat-sus.png";
-        speech.textContent = "💨 푸우우우우웅!!!!";
-
-    }
-
+    const gases = document.querySelectorAll(".gas");
+    
+    gases.forEach((gas) => {
+        const delay = Math.random() * 0.8;
+        
+        // ★ forwards를 both로 변경! 
+        // (대기 시간 동안에도 하얗게 커져 있는 0% 상태를 꽉 유지하게 만듦)
+        gas.style.animation = `evaporate 2s ease-in both ${delay}s`;
+    });
 }
