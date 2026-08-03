@@ -4,74 +4,65 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>???</title>
-
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- 시작 화면 -->
 <div id="startScreen" class="screen">
-
     <h1>🐱</h1>
-
     <h2>살구가 방귀를 뀌는 것을 도와주세요!</h2>
-
     <p>
         배를 열심히 쓰다듬으면<br>
         시원하게 방귀를 뀔지도 몰라요. ㅋㅋ!
     </p>
-
     <button id="startBtn">시작하기</button>
-
 </div>
 
-
+<!-- 게임 화면 -->
 <div id="gameScreen" class="screen hidden">
-
     <p>배를 쓰다듬어 주세요.</p>
-
     <div id="cat">
-
-
         <div id="catFace">
-
-    <img
-        id="catImage"
-        src="images/cat-normal.png"
-        alt="고양이">
-
-    <div class="blush left"></div>
-    <div class="blush right"></div>
-
-</div>
-
+            <img id="catImage" src="images/cat-normal.png" alt="고양이">
+            <div class="blush left"></div>
+            <div class="blush right"></div>
+        </div>
         <div id="catBody">
-
-    <img
-        id="catBodyImage"
-        src="images/cat-body.png"
-        alt="고양이 몸">
-
-    <div id="belly"></div>
-
-</div>
-
+            <img id="catBodyImage" src="images/cat-body.png" alt="고양이 몸">
+            <div id="belly"></div>
+        </div>
         <div id="tail"></div>
-
     </div>
-
     <div id="speech"></div>
-
     <div id="fart"></div>
-
 </div>
 
+<!-- 생일 서프라이즈 화면 -->
 <div id="birthdayScreen">
-
     <img src="images/birthday.png" id="birthdayImage">
+    <div id="confettiContainer"></div>
+    
+    <!-- 캐릭터들 -->
+    <img src="images/aura.png" class="gift-char" id="aura" alt="aura">
+    <img src="images/minion.png" class="gift-char" id="minion" alt="minion">
+    <img src="images/minion2.png" class="gift-char" id="minion2" alt="minion2">
+    <img src="images/minion3.png" class="gift-char" id="minion3" alt="minion3">
+    <img src="images/pri.png" class="gift-char" id="pri" alt="pri">
+    <img src="images/wall-e.png" class="gift-char" id="wall-e" alt="wall-e">
+    <img src="images/mario.png" class="gift-char" id="mario" alt="mario">
+
+    <!-- 말풍선 -->
+    <div id="charBubble" class="hidden"></div>
+
+    <div id="gameDialog" class="hidden">
+        <div id="dialogName">💖 퀘스트 알림</div>
+        <div id="dialogText"></div>
+        <div id="dialogNext">▼</div>
+    </div>
 
 </div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
