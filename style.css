@@ -91,24 +91,56 @@ button {
 /* --- 방귀 효과 --- */
 #fart { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 998; }
 
-/* --- 방귀 효과 수정 (렉 제로 버젼) --- */
-.gas {
-    position: absolute; 
-    width: 200px; /* 크기를 살짝 키우고 */
-    height: 200px;
-    border-radius: 50%; 
-    
-    background: radial-gradient(circle, rgba(255,255,255,1) 30%, rgba(255,255,255,0) 70%);
-    
-    /* 5초에서 3.5초로 줄여서 더 빠르게 퍼지게 만듦 */
-    animation: gasSpread 3.5s ease-out forwards; 
-    will-change: transform, opacity;
+/* ==========================
+   ★ 1. 화면 지진 효과 ★
+========================== */
+.shake {
+    /* 0.4초 동안 엄청 빠르게 흔들림 */
+    animation: earthquake 0.4s infinite; 
 }
 
-@keyframes gasSpread {
-    0% { transform: scale(0.1); opacity: 0; }
-    15% { opacity: 0.95; }
-    100% { transform: scale(12); opacity: 1; }
+@keyframes earthquake {
+    0% { transform: translate(2px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(0px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(2px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(2px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+/* ==========================
+   ★ 2. 거대한 방귀 안개 ★
+========================== */
+.fart-mist {
+    position: absolute;
+    /* 화면 전체를 덮도록 아주 크게 설정 */
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    
+    /* 방귀 느낌이 살짝 나는 뽀얀 노란+흰색 안개 */
+    background: radial-gradient(circle, rgba(255, 255, 230, 1) 20%, rgba(255, 255, 255, 0.95) 50%, rgba(255, 255, 255, 0) 80%);
+    
+    opacity: 0;
+    pointer-events: none;
+    
+    /* 안개가 스르륵 차오르는 애니메이션 */
+    animation: mistFadeIn 1.5s ease-out forwards;
+}
+
+@keyframes mistFadeIn {
+    0% { opacity: 0; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1.1); }
+}
+
+/* 안개가 걷힐 때 위로 날아가며 사라짐 */
+@keyframes evaporate { 
+    0% { opacity: 1; transform: scale(1.1) translateY(0); }
+    100% { opacity: 0; transform: scale(1.5) translateY(-100px); }
 }
 
 /* --- 생일 화면 --- */
@@ -147,6 +179,12 @@ button {
 #wall-e { top: 25%; right: 20%; animation-delay: 0.4s; }
 #pri { top: 45%; right: 5%; animation-delay: 0.7s; }
 #mario { top: 64%; right: 19%; animation-delay: 0.2s;}
+#princess {
+    top: 30%; /* 위에서부터 35% 지점 */
+    left: 35%; /* 왼쪽에서부터 42% 지점 (화면 중앙) */
+    animation-delay: 0.8s;
+    width: 500px;
+}
 
 /* --- 말풍선 --- */
 #charBubble {
@@ -271,4 +309,17 @@ button {
 @keyframes blink {
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
+}
+
+/* ==========================
+   ★ 3. 고집불통 안개 강제 삭제 애니메이션 ★
+========================== */
+.evaporate-mist {
+    /* !important를 붙여서 기존 애니메이션을 무조건 덮어씌웁니다! */
+    animation: mistFadeOut 2s ease-in forwards !important; 
+}
+
+@keyframes mistFadeOut {
+    0% { opacity: 1; transform: scale(1.1) translateY(0); }
+    100% { opacity: 0; transform: scale(1.5) translateY(-100px); }
 }
